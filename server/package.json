@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node sever.js",
+    "dev": "nodemon server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.22.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "formidable": "^2.0.1",
+    "https": "^1.0.0",
+    "is-reachable": "^5.0.0",
+    "line-api": "^0.2.1",
+    "mysql": "^2.18.1",
+    "node-cron": "^3.0.0",
+    "nodemon": "^2.0.15",
+    "require": "^2.4.20",
+    "rerequire": "^1.0.1",
+    "sharp": "^0.30.0"
+  }
+}
