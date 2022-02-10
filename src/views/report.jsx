@@ -52,7 +52,7 @@ export default function Report() {
     })
   })  
   const datatable = {
-    columns:[ 
+    columns:[
       {
         label: "แก้ไขข้อมูล",
         field: "btn_ed",
@@ -92,6 +92,7 @@ export default function Report() {
         label: "เบอร์โทรศัพท์",
         field: "phone",
         width: 100,
+        
       },
     ],
     rows:row,
@@ -104,12 +105,12 @@ export default function Report() {
         <Card>
           <CardBody>
         <MDBDataTableV5
-          // striped    
-          hover 
+        //striped    
+          //hover 
           entriesOptions={[5, 10, 20, 25]}
           entries={5}
           pagesAmount={4}
-          scrollX
+         // scrollX
           data={datatable}
           searchTop
           searchBottom={false}
