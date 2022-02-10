@@ -27,6 +27,7 @@ import Userform from "views/userform";
 import Report from "views/report";
 import Position from "views/position";
 import Edit from "views/edit";
+import Editposition from "views/edit_position";
 
 
 var dashRoutes = [
@@ -51,13 +52,13 @@ var dashRoutes = [
     component: Position,
     layout:"/admin",
   },
-  // {
-  //   path: "/edit",
-  //   name: "edit",
-  //   icon: "design-2_ruler-pencil",
-  //   component: Edit,
-  //   layout:"/admin",
-  // },
+  {
+    path: "/edit_position",
+    name: "edit position",
+    icon: "design-2_ruler-pencil",
+    component: Editposition,
+    layout:"/admin",
+  },
   
   // {
   //   path: "/maps",
