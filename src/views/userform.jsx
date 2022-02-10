@@ -1,4 +1,3 @@
-//testdddd
 import React, { useState } from "react";
 import { Row,Col,Button,Form,FormGroup,Label,Input,Card,CardHeader,CardBody,} from "reactstrap";
 import swal from "sweetalert";
@@ -147,7 +146,7 @@ export default function Userform() {
                       <FormGroup>
                         <label> รหัสพนักงาน</label>
                         <Input
-                          // required
+                          required
                           type="text"
                           placeholder="ID_Employee" style={{fontSize:"14px"}}
                           onChange={(e) => setHr_Employeeid(e.target.value)}
@@ -159,7 +158,7 @@ export default function Userform() {
                       <FormGroup>
                         <label> วันเข้างาน</label>
                         <Input
-                        // required
+                        required
                           type="date"
                           placeholder="วันเข้างาน" style={{fontSize:"14px"}}
                           onChange={(e) => setHr_Job_Start(e.target.value)}
@@ -172,7 +171,7 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label> ชื่อ</label>
                         <Input
-                        // required
+                        required
                           type="text"
                           placeholder="ชื่อ(ภาษาไทย)" style={{fontSize:"14px"}}
                           onChange={(e) => setHr_Employeename(e.target.value)}
@@ -183,7 +182,7 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label> นามสกุล</label>
                         <Input
-                        // required
+                        required
                           type="text"
                           placeholder="นามสกุล" style={{fontSize:"14px"}}
                           onChange={(e) =>
@@ -198,7 +197,7 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label>First Name</label>
                         <Input
-                        // required
+                        required
                           type="text"
                           placeholder="name" style={{fontSize:"14px"}}
                           onChange={(e) => setHr_Employee_eng(e.target.value)}
@@ -209,7 +208,7 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label> Last Name</label>
                         <Input
-                        // required
+                        required
                           type="text"
                           placeholder="lastname" style={{fontSize:"14px"}}
                           onChange={(e) => setHr_Lastname_Eng(e.target.value)}
@@ -222,7 +221,7 @@ export default function Userform() {
                       <FormGroup>
                         <label> ชื่อเล่น</label>
                         <Input
-                        // required
+                        required
                           type="text"
                           placeholder="Nickname" style={{fontSize:"14px"}}
                           onChange={(e) =>
@@ -235,7 +234,7 @@ export default function Userform() {
                       <FormGroup>
                         <label> เบอร์โทรศัพท์</label>
                         <Input
-                        // required
+                        required
                           type="tel"
                           placeholder="Phone" style={{fontSize:"14px"}}
                           onChange={(e) => setHr_Employeephone(e.target.value)}
@@ -250,6 +249,7 @@ export default function Userform() {
                         <br />
                         <div style={{ paddingLeft: "30px" }}>
                           <Input
+                          required
                             type="radio"
                             value="รายเดือน"
                             name="cat_em"
@@ -272,7 +272,7 @@ export default function Userform() {
                       <FormGroup>
                         <label>สายงาน</label>
                         <Input style={{fontSize:"14px"}}
-                        // required
+                        required
                           type="select"
                           onChange={(e) => setID_section(e.target.value)}>
                           <option value="">เลือกสายงาน</option>
@@ -291,7 +291,7 @@ export default function Userform() {
                       <FormGroup>
                         <label>ฝ่าย</label>
                         <Input style={{fontSize:"14px"}}
-                        // required
+                        required
                           type="select"
                           onChange={(e) => setID_department(e.target.value)} 
                         >
@@ -311,7 +311,7 @@ export default function Userform() {
                       <FormGroup>
                         <label>ตำแหน่ง</label>
                         <Input
-                     
+                        required
                           type="select"
                           onChange={(e) => setID_position(e.target.value)} style={{fontSize:"14px"}}>
                           {" "}
@@ -332,7 +332,7 @@ export default function Userform() {
                       <FormGroup>
                         <label> E-mail</label>
                         <Input
-                        // required
+                        required
                           type="email"
                           placeholder="Email"
                           onChange={(e) => setHr_Email_User(e.target.value)} style={{fontSize:"14px"}}
@@ -344,7 +344,7 @@ export default function Userform() {
                       <FormGroup>
                         <label> รหัสผ่าน</label>
                         <Input
-                        // required
+                        required
                           type="password"
                           name="pw"
                           placeholder="Password"
@@ -355,7 +355,7 @@ export default function Userform() {
                   </Row>
                   <label> รูปภาพ</label>
                   <Input
-                  // required
+                  required
                     type="file"
                     name="image" 
                     accept="image/*"
