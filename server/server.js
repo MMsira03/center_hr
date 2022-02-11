@@ -302,13 +302,14 @@ app.get("/dynamic_position/:id_department", (req, res) => {
 });
 
 app.post("/post_addposition", (req, res) => {
+  let id_section = req.body.id_section;
   let id_department = req.body.id_department;
   let thai_position = req.body.thai_position;
   let eng_position = req.body.eng_position;
 
   let insert_hr_position =
-    "insert into hr_position(id_department,thai_position,eng_position)values(?,?,?)";
-  let array_hr_position = [id_department, thai_position, eng_position];
+    "insert into hr_position(id_section,id_department,thai_position,eng_position)values(?,?,?,?)";
+  let array_hr_position = [id_section,id_department, thai_position, eng_position];
   db.query(insert_hr_position, array_hr_position, (err, result) => {
     if (err) {
       console.log(err);
@@ -323,6 +324,30 @@ app.post("/post_addposition", (req, res) => {
     }
   });
 });
+
+//แก้ไข ลบ position
+app.get("/post_addposition_edit", (req, res) => {
+  db.query(
+    //"SELECT hr_position.*,hr_department.eng_section,",
+    "SELECT hr_position.*,hr_section.eng_section,hr_department.eng_department FROM hr_position INNER JOIN hr_section ON hr_position.id_section = hr_section.id_section INNER JOIN hr_department ON hr_position.id_department = hr_department.id_department ;",
+    // "SELECT hr_position.* , hr_department.eng_department FROM `hr_position` inner join hr_department on hr_position.id_department = hr_department.id_department;", 
+ // "SELECT project_hr.*,hr_section.eng_section,hr_department.eng_department,hr_position.eng_position FROM project_hr INNER JOIN hr_section ON project_hr.id_section = hr_section.id_section INNER JOIN hr_department ON project_hr.id_department = hr_department.id_department INNER JOIN hr_position ON project_hr.id_position = hr_position.id_position ORDER BY project_hr.hr_run_id DESC",
+    (err, result) => {
+      //("SELECT project_hr.* , hr_department.thai_department FROM `project_hr` inner join hr_department on project_hr.id_department = hr_department.id_department;", (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        let img = "/";
+        res.send(result);
+        // res.send({
+
+        // })
+      }
+    }
+  );
+});
+
+
 
 app.post("/post_form_hr_edit", (req, res) => {
   let hr_employeeid_edit = req.body.hr_employeeid_edit;
@@ -386,4 +411,45 @@ app.post("/post_form_hr_edit", (req, res) => {
       });
     }
   });
+});
+
+app.post("/post_addposition_edit", (req, res) => {
+  let id_department = req.body.id_department;
+  let thai_position = req.body.thai_position;
+  let eng_position = req.body.eng_position;
+
+  let insert_hr_position =
+    "insert into hr_position(id_department,thai_position,eng_position)values(?,?,?)";
+  let array_hr_position = [id_department, thai_position, eng_position];
+  db.query(insert_hr_position, array_hr_position, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.send({
+        message: "เพิ่มข้อมูลไม่สำเร็จ",
+      });
+    } else {
+      res.send({
+        status: "ok",
+        message: "เพิ่มข้อมูลสำเร็จ",
+      });
+    }
+  });
+});
+
+app.get("/set_addposition/:id", (req, res) => {
+  // let hr_run_id = "138";
+  let id = req.params.id;
+  db.query(
+    "SELECT project_hr.*,hr_section.eng_section,hr_department.eng_department,hr_position.eng_position FROM project_hr INNER JOIN hr_section ON project_hr.id_section = hr_section.id_section INNER JOIN hr_department ON project_hr.id_department = hr_department.id_department INNER JOIN hr_position ON project_hr.id_position = hr_position.id_position where project_hr.hr_run_id = '" +
+      id +
+      "' ORDER BY project_hr.hr_run_id DESC",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+        res.send(result[0]);
+      }
+    }
+  );
 });
