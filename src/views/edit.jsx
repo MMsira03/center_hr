@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   Row,
@@ -214,7 +213,7 @@ export default function Edit(props) {
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>
               <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
-                <h5 className="title">แก้ไขข้อมูลพนักงาน</h5>
+                <h5 className="title">แก้ไขข้อมูลพนักงาน</h5> 
               </CardHeader>
 
               <CardBody>

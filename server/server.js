@@ -325,8 +325,9 @@ app.post("/post_addposition", (req, res) => {
   });
 });
 
-//แก้ไข ลบ position
+//แก้ไข ลบ position=======
 app.get("/post_addposition_edit", (req, res) => {
+  
   db.query(
     //"SELECT hr_position.*,hr_department.eng_section,",
     "SELECT hr_position.*,hr_section.eng_section,hr_department.eng_department FROM hr_position INNER JOIN hr_section ON hr_position.id_section = hr_section.id_section INNER JOIN hr_department ON hr_position.id_department = hr_department.id_department ;",
@@ -439,6 +440,7 @@ app.post("/post_addposition_edit", (req, res) => {
 app.get("/set_addposition/:id", (req, res) => {
   // let hr_run_id = "138";
   let id = req.params.id;
+  
   db.query(
     "SELECT project_hr.*,hr_section.eng_section,hr_department.eng_department,hr_position.eng_position FROM project_hr INNER JOIN hr_section ON project_hr.id_section = hr_section.id_section INNER JOIN hr_department ON project_hr.id_department = hr_department.id_department INNER JOIN hr_position ON project_hr.id_position = hr_position.id_position where project_hr.hr_run_id = '" +
       id +

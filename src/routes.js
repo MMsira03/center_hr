@@ -30,6 +30,7 @@ import Report from "views/report";
 import Position from "views/position";
 import Edit from "views/edit";
 import Editposition from "views/edit_position";
+import Position_ed from "views/position_ed";
 
 
 var dashRoutes = [
@@ -61,7 +62,13 @@ var dashRoutes = [
     component: Editposition,
     layout:"/admin",
   },
-  
+  {
+    path: "/Position_ed",
+    name: "แก้ไขตำแหน่ง",
+    icon: "design-2_ruler-pencil",
+    component: Position_ed,
+    layout:"/admin",
+  },
   // {
   //   path: "/maps",
   //   name: "Maps",

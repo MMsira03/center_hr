@@ -14,9 +14,10 @@ export default function Editposition() {
   const [data_status, setData_status] = useState([]);
   
   // const server = "http://localhost:3010";
+  
 
   useEffect(() => {
-    fetch('http://localhost:4000/post_form_hr')
+    fetch('http://localhost:4000/post_addposition_edit')
       .then((response) => response.json())
       .then((result) => setData_status(result))
       .then(() => setLoading(false))
@@ -40,15 +41,23 @@ export default function Editposition() {
   const row = [];
   data_status.forEach((data, key) => {
     row.push({ 
-      btn_ed:<div ><a href={"/admin/edit_emp/"+data.hr_run_id}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
-      //<div className="button"><button onClick={() => check_edit(data.hr_employeename,data.hr_surname)}>แก้ไข</button></div>, 
-      image:<img src={'http://localhost:4000/'+data.hr_employee_img} alt="" style={{height:"60px",width:"60px"}}/>,
-      empname:data.hr_employeename,
-      surname:data.hr_surname,
-      nickname:data.hr_nickname,
-      position:data.eng_position,
-      job_start:data.hr_job_start,
-      phone:data.hr_phone,
+      // btn_ed:<div ><a href={"/admin/edit_emp/"+data.hr_run_id}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
+      // //<div className="button"><button onClick={() => check_edit(data.hr_employeename,data.hr_surname)}>แก้ไข</button></div>, 
+      // image:<img src={'http://localhost:4000/'+data.hr_employee_img} alt="" style={{height:"60px",width:"60px"}}/>,
+      // empname:data.hr_employeename,
+      // surname:data.hr_surname,
+      // nickname:data.hr_nickname,
+      // position:data.eng_position,
+      // job_start:data.hr_job_start,
+      // phone:data.hr_phone,
+
+      btn_ed:<div ><a href={"/admin/position/"}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
+      delete:<div ><a href={"/admin/edit_posi/"+data.hr_run_id}><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}}>ลบข้อมูล</button></a></div>,
+      section:data.eng_section,
+      department:data.eng_department,
+      position_thai:data.	thai_position,
+      position_eng:data.eng_position,
+
     })
   })  
   const datatable = {
@@ -59,41 +68,31 @@ export default function Editposition() {
         width:  100,
       },
       {
-        label: "รูปภาพ",
-        field: "image",
+        label: "ลบข้อมูล",
+        field: "delete",
         width:  100,
       },
       {
-        label: "ชื่อ",
-        field: "empname",
+        label: "สายงาน",
+        field: "section",
         width: 100,
       },
       {
-        label: "นามสกุล",
-        field: "surname",
+        label: "ฝ่าย",
+        field: "department",
         width: 100,
       },
       {
-        label: "ชื่อเล่น",
-        field: "nickname",
+        label: "ชื่อตำแหน่ง(Th)",
+        field: "position_thai",
         width: 100,
       },
       {
-        label: "ตำแหน่ง",
-        field: "position",
+        label: "ชื่อตำแหน่ง(Eng)",
+        field: "position_eng",
         width: 100,
       },
-      {
-        label: "วันที่เริ่มงาน",
-        field: "job_start",
-        width: 100,
-      },
-      {
-        label: "เบอร์โทรศัพท์",
-        field: "phone",
-        width: 100,
-        
-      },
+     
     ],
     rows:row,
   };

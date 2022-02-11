@@ -55,7 +55,7 @@ function Admin(props) {
             );
           })}
           <Route path="/admin/edit_emp/:id" component={Edit}></Route>
-
+      
           <Redirect from="/admin" to="/admin/dashboard" />
         </Switch>
         <Footer fluid />
