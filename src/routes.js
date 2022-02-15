@@ -29,7 +29,7 @@ import Userform from "views/userform";
 import Report from "views/report";
 import Position from "views/position";
 import Edit from "views/edit";
-import Editposition from "views/edit_position";
+import Reportposition from "views/report_position";
 import Position_ed from "views/position_ed";
 
 
@@ -56,10 +56,10 @@ var dashRoutes = [
     layout:"/admin",
   },
   {
-    path: "/edit_position",
-    name: "edit position",
+    path: "/report_position",
+    name: "repost position",
     icon: "design-2_ruler-pencil",
-    component: Editposition,
+    component: Reportposition,
     layout:"/admin",
   },
   {
