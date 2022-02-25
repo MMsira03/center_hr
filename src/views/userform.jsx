@@ -1,6 +1,16 @@
-
 import React, { useState } from "react";
-import { Row,Col,Button,Form,FormGroup,Label,Input,Card,CardHeader,CardBody,} from "reactstrap";
+import {
+  Row,
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Card,
+  CardHeader,
+  CardBody,
+} from "reactstrap";
 import swal from "sweetalert";
 import axios from "axios";
 import PanelHeader from "components/PanelHeader/PanelHeader";
@@ -21,7 +31,7 @@ export default function Userform() {
   const [hr_emp, setHr_Emp] = useState("");
   const [hr_employee_eng, setHr_Employee_eng] = useState("");
   const [hr_lastname_eng, setHr_Lastname_Eng] = useState("");
-  
+
   //======= ID Dynamic ====================================
   const [id_section, setID_section] = useState("");
   const [id_department, setID_department] = useState("");
@@ -31,7 +41,7 @@ export default function Userform() {
   const [hr_section, setHr_section] = useState([]);
   const [hr_department, setHr_department] = useState([]);
   const [hr_position, setHr_position] = useState([]);
-
+ 
   //================== file ==============
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState("");
@@ -76,7 +86,7 @@ export default function Userform() {
         buttons: false,
         timer: 2200,
       }).then((value) => {
-        window.location.href = "/admin/edit_emp/"+response.id;
+        window.location.href = "/admin/edit_emp/" + response.id;
       });
     } else {
       swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");
@@ -84,10 +94,9 @@ export default function Userform() {
   };
 
   //=========== type file_img=========
-  const saveFile = (e) => { 
+  const saveFile = (e) => {
     setFile(e.target.files[0]);
     setFileName(e.target.files[0].name);
-  
   };
   const uploadFile = async (e) => {
     const formData = new FormData();
@@ -125,6 +134,24 @@ export default function Userform() {
       .then((result) => setHr_position(result))
       .catch((Error) => Error);
   }, [id_department]);
+  
+   
+  const director =() => {
+    document.getElementById('de').disabled=true;
+    document.getElementById('po').disabled=true;
+    setID_department("26");
+    setID_position("50");
+  }
+  const manager =() => {
+    document.getElementById('po').disabled=true;
+    // setID_department("26");
+    setID_position("51");
+  }
+
+  const cat_emp =() => {
+    document.getElementById('de').disabled=false;
+    document.getElementById('po').disabled=false;
+  }
 
   //=========== return ==========================
   ////backgroundColor: "#808088"
@@ -135,8 +162,7 @@ export default function Userform() {
         <Row>
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>
-              <CardHeader style={{ backgroundColor:"#747474",color: "#fff" }}> 
-               
+              <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
                 <h5 className="title">ฟอร์มกรอกข้อมูลพนักงาน</h5>
               </CardHeader>
 
@@ -149,7 +175,9 @@ export default function Userform() {
                         <Input
                           required
                           type="text"
-                          placeholder="ID_Employee" style={{fontSize:"14px"}}
+                        
+                          placeholder="ID_Employee"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) => setHr_Employeeid(e.target.value)}
                         />
                       </FormGroup>
@@ -159,9 +187,10 @@ export default function Userform() {
                       <FormGroup>
                         <label> วันเข้างาน</label>
                         <Input
-                        required
+                          required
                           type="date"
-                          placeholder="วันเข้างาน" style={{fontSize:"14px"}}
+                          placeholder="วันเข้างาน"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) => setHr_Job_Start(e.target.value)}
                         />
                       </FormGroup>
@@ -172,9 +201,10 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label> ชื่อ</label>
                         <Input
-                        required
+                          required
                           type="text"
-                          placeholder="ชื่อ(ภาษาไทย)" style={{fontSize:"14px"}}
+                          placeholder="ชื่อ(ภาษาไทย)"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) => setHr_Employeename(e.target.value)}
                         />
                       </FormGroup>
@@ -183,9 +213,10 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label> นามสกุล</label>
                         <Input
-                        required
+                          required
                           type="text"
-                          placeholder="นามสกุล" style={{fontSize:"14px"}}
+                          placeholder="นามสกุล"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) =>
                             setHr_Employeesurname(e.target.value)
                           }
@@ -198,9 +229,10 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label>First Name</label>
                         <Input
-                        required
+                          required
                           type="text"
-                          placeholder="name" style={{fontSize:"14px"}}
+                          placeholder="name"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) => setHr_Employee_eng(e.target.value)}
                         ></Input>
                       </FormGroup>
@@ -209,9 +241,10 @@ export default function Userform() {
                       <FormGroup class="col-md-12">
                         <label> Last Name</label>
                         <Input
-                        required
+                          required
                           type="text"
-                          placeholder="lastname" style={{fontSize:"14px"}}
+                          placeholder="lastname"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) => setHr_Lastname_Eng(e.target.value)}
                         ></Input>
                       </FormGroup>
@@ -222,9 +255,10 @@ export default function Userform() {
                       <FormGroup>
                         <label> ชื่อเล่น</label>
                         <Input
-                        required
+                          required
                           type="text"
-                          placeholder="Nickname" style={{fontSize:"14px"}}
+                          placeholder="Nickname"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) =>
                             setHr_Employeenickname(e.target.value)
                           }
@@ -235,23 +269,26 @@ export default function Userform() {
                       <FormGroup>
                         <label> เบอร์โทรศัพท์</label>
                         <Input
-                        required
+                          required
                           type="tel"
-                          placeholder="Phone" style={{fontSize:"14px"}}
+                          placeholder="Phone"
+                          style={{ fontSize: "14px" }}
                           onChange={(e) => setHr_Employeephone(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
-                    <Col sm="3">
-                      <FormGroup class="col-md-12" required >
+                    <Col sm="4">
+                      <FormGroup >
                         <label>พนักงาน</label>
                         <br />
                         <div style={{ paddingLeft: "30px" }}>
                           <Input
-                          required
+                            onClick={cat_emp}
+                            required
                             type="radio"
+                            id="emp_1"
                             value="รายเดือน"
                             name="cat_em"
                             onChange={(e) => setHr_Emp(e.target.value)}
@@ -259,23 +296,47 @@ export default function Userform() {
                           <label>รายเดือน</label>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <Input
+                            onClick={cat_emp}
                             type="radio"
+                            id="emp_2"
                             value="รายวัน"
                             name="cat_em"
                             onChange={(e) => setHr_Emp(e.target.value)}
                           />{" "}
                           <label>รายวัน</label>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <Input
+                          onClick={director}
+                            type="radio"
+                            id="emp_3"
+                            value="ผู้อำนวยการ"
+                            name="cat_em"
+                            onChange={(e) => setHr_Emp(e.target.value)}
+                          />
+                          <label>ผู้อำนวยการ</label>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <Input
+                          onClick={manager}
+                            type="radio"
+                            id="emp_4"
+                            value="ผู้จัดการ"
+                            name="cat_em"
+                            onChange={(e) => setHr_Emp(e.target.value)}
+                          />
+                          <label>ผู้จัดการ</label>
                         </div>
                       </FormGroup>
                     </Col>
+
                     <Col sm="3">
-                      
                       <FormGroup>
                         <label>สายงาน</label>
-                        <Input style={{fontSize:"14px"}}
-                        required
+                        <Input
+                          style={{ fontSize: "14px" }}
+                          required
                           type="select"
-                          onChange={(e) => setID_section(e.target.value)}>
+                          onChange={(e) => setID_section(e.target.value)}
+                        >
                           <option value="">เลือกสายงาน</option>
                           {hr_section.map((data) => {
                             return (
@@ -291,10 +352,12 @@ export default function Userform() {
                     <Col sm="3">
                       <FormGroup>
                         <label>ฝ่าย</label>
-                        <Input style={{fontSize:"14px"}}
-                        required
+                        <Input
+                          style={{ fontSize: "14px" }}
+                          id="de"
+                          required
                           type="select"
-                          onChange={(e) => setID_department(e.target.value)} 
+                          onChange={(e) => setID_department(e.target.value)}
                         >
                           <option value="">เลือกฝ่าย</option>
                           {hr_department.map((data) => {
@@ -308,13 +371,16 @@ export default function Userform() {
                       </FormGroup>
                     </Col>
 
-                    <Col sm="3">
+                    <Col sm="2">
                       <FormGroup>
                         <label>ตำแหน่ง</label>
                         <Input
-                        required
+                          required
                           type="select"
-                          onChange={(e) => setID_position(e.target.value)} style={{fontSize:"14px"}}>
+                          id="po"
+                          onChange={(e) => setID_position(e.target.value)}
+                          style={{ fontSize: "14px" }}
+                        >
                           {" "}
                           <option value="">เลือกตำแหน่งงาน</option>
                           {hr_position.map((data) => {
@@ -333,10 +399,11 @@ export default function Userform() {
                       <FormGroup>
                         <label> E-mail</label>
                         <Input
-                        required
+                          required
                           type="email"
                           placeholder="Email"
-                          onChange={(e) => setHr_Email_User(e.target.value)} style={{fontSize:"14px"}}
+                          onChange={(e) => setHr_Email_User(e.target.value)}
+                          style={{ fontSize: "14px" }}
                         />
                       </FormGroup>
                     </Col>
@@ -345,23 +412,25 @@ export default function Userform() {
                       <FormGroup>
                         <label> รหัสผ่าน</label>
                         <Input
-                        required
+                          required
                           type="password"
                           name="pw"
                           placeholder="Password"
-                          onChange={(e) => setHr_Password(e.target.value)} style={{fontSize:"14px"}}
+                          onChange={(e) => setHr_Password(e.target.value)}
+                          style={{ fontSize: "14px" }}
                         />
                       </FormGroup>
                     </Col>
                   </Row>
                   <label> รูปภาพ</label>
                   <Input
-                  required
+                    required
                     type="file"
-                    name="image" 
+                    name="image"
                     accept="image/*"
-                    onChange={saveFile} style={{fontSize:"14px"}}>
-                 </Input>
+                    onChange={saveFile}
+                    style={{ fontSize: "14px" }}
+                  ></Input>
                   <br />
                   <Button type="submit">ตกลง</Button>
                 </Form>
