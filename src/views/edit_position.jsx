@@ -5,6 +5,7 @@ import { Card,CardBody,CardHeader,CardTitle,Table,Row,Col, Input, } from "reacts
 import PanelHeader from "components/PanelHeader/PanelHeader";
 import axios from "axios";
 import Edit from "../views/edit";
+import { Alert } from "antd";
 
 
 
@@ -36,6 +37,10 @@ export default function Editposition() {
   //   return data.BANPR === '05'; 
   // })
 
+
+
+ 
+
   // const test = 1 ;
   console.log(data_status)
   const row = [];
@@ -51,8 +56,10 @@ export default function Editposition() {
       // job_start:data.hr_job_start,
       // phone:data.hr_phone,
 
-      btn_ed:<div ><a href={"/admin/position/"}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
-      delete:<div ><a href={"/admin/edit_posi/"+data.hr_run_id}><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}}>ลบข้อมูล</button></a></div>,
+      
+      //btn_ed:<div> <a href={"/admin/Position_ed/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
+      //delete:<div><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert ("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></div>,
+      delete:<div ><a href={'http://localhost:4000/delete_position/'+data.id_position} ><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></a></div>,
       section:data.eng_section,
       department:data.eng_department,
       position_thai:data.	thai_position,
@@ -63,12 +70,7 @@ export default function Editposition() {
   const datatable = {
     columns:[
       {
-        label: "แก้ไขข้อมูล",
-        field: "btn_ed",
-        width:  100,
-      },
-      {
-        label: "ลบข้อมูล",
+        label: "Action",
         field: "delete",
         width:  100,
       },
