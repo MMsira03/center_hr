@@ -32,16 +32,19 @@ function Typography() {
           <Col md={12}>
             <Card>
               <CardHeader>
-                <h5 className="title">Now Ui Table Heading</h5>
-                <p className="category">Created using Montserrat Font Family</p>
+                {/* <h5 className="title">Now Ui Table Heading</h5> */}
+                {/* <p className="category">Created using Montserrat Font Family</p> */}
               </CardHeader>
               <CardBody>
-                <div className="typography-line">
+                <div style={{color:"red", textAlign:"center"}}>
                   <h1>
-                    <span>Header 1</span>The Life of Now Ui Dashboard{" "}
+                    {/* <span>ไม่สามารถดูข้อมูลได้</span> */}
+                    <p> * Can't open to view employee data * </p>
+                    <label style={{fontSize: "18px"}}> ไม่สามารถเปิดดูข้อมูลพนักงานได้ </label>
+                   
                   </h1>
                 </div>
-                <div className="typography-line">
+                {/* <div className="typography-line">
                   <h2>
                     <span>Header 2</span>The Life of Now Ui Dashboard{" "}
                   </h2>
@@ -139,7 +142,7 @@ function Typography() {
                     Header with small subtitle <br />
                     <small>Use "small" tag for the headers</small>
                   </h2>
-                </div>
+                </div> */}
               </CardBody>
             </Card>
           </Col>

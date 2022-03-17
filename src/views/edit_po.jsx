@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import {Row,Col,Button,Form,FormGroup,Label,Input,Card,CardHeader,CardBody,} from "reactstrap";
+import { Row,
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Card,
+  CardHeader,
+  CardBody,
+} from "reactstrap";
 import swal from "sweetalert";
 import axios from "axios";
 import PanelHeader from "components/PanelHeader/PanelHeader";
@@ -8,61 +18,67 @@ import { useEffect } from "react";
 import { result } from "lodash";
 
 export default function Position_ed(props) {
-
-  
   //======= ID Dynamic ====================================
   const [id_section, setID_section] = useState("");
   const [id_department, setID_department] = useState("");
 
-  //================เก็บค่าจาก API =====================
-  const [hr_section, setHr_section] = useState([]);
-  const [hr_department, setHr_department] = useState([]);
-  const [thai_position,setThai_position] = useState("");
-  const [eng_position,setEng_position] = useState("")
-
-
+  const [thai_position, setThai_position] = useState("");
+  const [eng_position, setEng_position] = useState("");
 
   //======= แก้ไข
-  const [hr_section_edit, setHr_section_edit] = useState([]);
-  const [hr_department_edit, setHr_department_edit] = useState([]);
-  const [thai_position_edit,setThai_position_edit] = useState("");
-  const [eng_position_edit,setEng_position_edit] = useState("")
-
   const [id_section_edit, setID_section_edit] = useState("");
+  // const [hr_section_edit, setHr_section_edit] = useState("");
+
   const [id_department_edit, setID_department_edit] = useState("");
-  const [data_all, setData_all] = useState([]);
 
+  const [id_position_edit, setID_position_edit] = useState("");
 
+  const [hr_department_edit, setHr_department_edit] = useState([]);
+  const [thai_position_edit, setThai_position_edit] = useState("");
+  const [eng_position_edit, setEng_position_edit] = useState("");
 
-  //================== file ==============
-//   const [file, setFile] = useState();
-//   const [fileName, setFileName] = useState("");
+  //================เก็บค่าจาก API =====================
 
+  const [hr_section, setHr_section] = useState([]);
+  const [hr_department, setHr_department] = useState([]);
+  const [hr_position, setHr_position] = useState([]);
   
+
+  const [data_all_id, setData_all_id] = useState([]);
+  //console.log(data_all_id)
   const server = "http://localhost:4000/";
 
-  const id = data_all.hr_position;
+ 
+
   //==================================
   async function Check_bom(credentials) {
-    return fetch(server + "post_addposition_edit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }).then((data) => data.json());
+    return fetch(
+      server +
+        "addposition_edit/" +
+        props.match.params.id_section +
+        "/" +
+        props.match.params.id_department +
+        "/" +
+        props.match.params.id_position,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      }
+    ).then((data) => data.json());
   }
   //=================== onSubmit_input_form ==============
   const input_form = async (event) => {
     event.preventDefault();
     const response = await Check_bom({
-    
-      id,
+      //id,
       id_section_edit,
       id_department_edit,
       thai_position_edit,
       eng_position_edit,
-     
+      id_position_edit,
     });
     // =========================== swal =============================
     if ("status" in response) {
@@ -70,27 +86,26 @@ export default function Position_ed(props) {
         buttons: false,
         timer: 2200,
       }).then((value) => {
-        // window.location.href = "/admin/Add_sap";
+       // window.location.href = "/admin/Position_ed/";
       });
     } else {
-      swal("เพิ่มข้อมูลไม่สำเร็จ", response.message, "error");
+      swal("แก้ไขตำแหน่งไม่สำเร็จ", response.message, "error");
     }
   };
- 
-  //============== dynamic_section=================
-  useEffect(() => {
-    fetch("http://localhost:4000/set_addposition/" + props.match.params.id)
-      .then((response) => response.json())
-      .then((result) => setData_all(result))
-     // .then((result) => setHr_section(result))
-      .catch((Error) => Error);
-  }, []);
 
   //====== dynamic_section
   useEffect(() => {
-    fetch("http://localhost:4000/dynamic_section")
+    fetch(
+      server +
+        "set_addposition/" +
+        props.match.params.id_section +
+        "/" +
+        props.match.params.id_department +
+        "/" +
+        props.match.params.id_position
+    )
       .then((response) => response.json())
-      .then((result) => setHr_section(result))
+      .then((result) => setData_all_id(result))
       .catch((Error) => Error);
   }, []);
 
@@ -100,24 +115,24 @@ export default function Position_ed(props) {
       .then((response) => response.json())
       .then((result) => setHr_department(result))
       .catch((Error) => Error);
-  }, [id_section]);
+  }, [id_section_edit]);
 
   useEffect(() => {
     fetch("http://localhost:4000/dynamic_position/" + id_department_edit)
       .then((response) => response.json())
       .then((result) => setHr_position(result))
       .catch((Error) => Error);
-  }, [id_department]);
-
+  }, [id_department_edit]);
 
   const Set_appposition = () => {
-    setID_section_edit(data_all.id_section);
-    setID_department_edit(data_all.id_department);
-    setThai_position_edit(data_all.thai_position);
-    setEng_position_edit(data_all.eng_position);
-  }
+    setID_section_edit(data_all_id.id_section);
+    setID_department_edit(data_all_id.id_department);
+    setThai_position_edit(data_all_id.thai_position);
+    setEng_position_edit(data_all_id.eng_position);
 
-  //backgroundColor: "#808088"
+    setID_position_edit(data_all_id.id_position);
+  };
+
   return (
     <>
       <PanelHeader size="sm" />
@@ -125,52 +140,38 @@ export default function Position_ed(props) {
         <Row>
           <Col md="11">
             <Card style={{ marginLeft: "4%" }}>
-              <CardHeader style={{backgroundColor:"#747474",color: "#fff" }}>
-                <h5 className="title">เพิ่มชื่อฝ่าย/ตำแหน่ง</h5> 
-          
+              <CardHeader style={{ backgroundColor: "#747474", color: "#fff" }}>
+                <h5 className="title">แก้ไขชื่อฝ่าย-ตำแหน่ง</h5>
               </CardHeader>
-
               <CardBody>
                 <Form onSubmit={input_form}>
                   <Row>
                     <Col sm="3">
                       <FormGroup>
-                        <Label>สายงาน</Label>
+                        <label>สายงาน</label>
                         <Input
-                          type="select"
-                          onChange={(e) => setID_section_edit(e.target.value)} style={{fontSize:"14px"}}
-                        >
-                            <option checked value ={data_all.id_section_edit} >
-                                {data_all.eng_section}
-                            </option>
-                            {hr_section.map((data) => {
-                                return(
-                                    <option value={data.id_section}>
-                                        {data.eng_section}
-                                    </option>
-                                )
-                            })}
-                          {/* <option value="">เลือกสายงาน</option>
-                          {hr_section.map((data) => {
-                            return (
-                              <option value={data.id_section}>
-                                {data.eng_section}
-                              </option>
-                            );
-                          })} */}
-                        </Input>
+                          defaultValue={data_all_id.id_section}
+                          style={{
+                            fontSize: "14px",
+                          }}
+                          onChange={(e) => setID_section_edit(e.target.value)}
+                        />
                       </FormGroup>
                     </Col>
 
                     <Col sm="3">
                       <FormGroup>
-                        <Label>ฝ่าย</Label>
+                        <label>ฝ่าย</label>
                         <Input
-                          type="select"
-                          onChange={(e) => setID_department_edit(e.target.value)} style={{fontSize:"14px"}}
+                          style={{
+                            fontSize: "14px",
+                          }}
+                          onChange={(e) =>
+                            setID_department_edit(e.target.value)
+                          }
                         >
-                          <option checked value={data_all.id_department}>
-                              {data_all.eng_department}
+                          <option checked value={data_all_id.id_department}>
+                            {data_all.eng_department}
                           </option>
                           {hr_department.map((data) => {
                             return (
@@ -182,14 +183,18 @@ export default function Position_ed(props) {
                         </Input>
                       </FormGroup>
                     </Col>
+
                     <Col sm="3">
                       <FormGroup>
                         <Label>ชื่อตำแหน่ง/ฝ่าย(THAI)</Label>
                         <Input
                           type="text"
+                          required
+                          defaultValue={data_all_id.thai_position}
+                          style={{ fontSize: "13px" }}
                           placeholder="ตำแหน่ง(ภาษาไทย)"
-                          onChange={(e) => setThai_position_edit(e.target.value)} style={{fontSize:"14px"}}> 
-                        </Input>
+                          onChange={(e) => setID_position_edit(e.target.value)}
+                        ></Input>
                       </FormGroup>
                     </Col>
 
@@ -198,9 +203,14 @@ export default function Position_ed(props) {
                         <Label>ชื่อตำแหน่ง/ฝ่าย(ENG)</Label>
                         <Input
                           type="text"
+                          required
                           placeholder="ตำแหน่ง(ภาษาอังกฤษ)"
-                          onChange={(e) => setEng_position_edit(e.target.value)} style={{fontSize:"14px"}}>
-                        </Input>
+                          defaultValue={data_all_id.eng_position}
+                          style={{
+                            fontSize: "13px",
+                          }}
+                          onChange={(e) => setEng_position_edit(e.target.value)}
+                        ></Input>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -215,7 +225,3 @@ export default function Position_ed(props) {
     </>
   );
 }
-
-
-
-

@@ -38,9 +38,6 @@ export default function Editposition() {
   // })
 
 
-
- 
-
   // const test = 1 ;
   console.log(data_status)
   const row = [];
@@ -57,9 +54,8 @@ export default function Editposition() {
       // phone:data.hr_phone,
 
       
-      //btn_ed:<div> <a href={"/admin/Position_ed/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
-      //delete:<div><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert ("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></div>,
-      delete:<div ><a href={'http://localhost:4000/delete_position/'+data.id_position} ><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></a></div>,
+      edit:<div> <a href={"/admin/Position_ed/"+data.id_section+"/"+data.id_department+"/"+data.id_position}><button type="button" className="button">แก้ไขข้อมูล</button></a></div>,
+      //delete:<div ><a href={'http://localhost:4000/delete_position/'+data.id_position} ><button type="button" style={{backgroundColor:"#000", borderColor:"#000"}} onClick ={() => alert("ต้องการลบข้อมูลตำแหน่ง" +data.eng_position)}>ลบข้อมูล</button></a></div>,
       section:data.eng_section,
       department:data.eng_department,
       position_thai:data.	thai_position,
@@ -70,29 +66,34 @@ export default function Editposition() {
   const datatable = {
     columns:[
       {
-        label: "Action",
-        field: "delete",
+        label: "แก้ไขข้อมูล",
+        field: "edit",
         width:  100,
       },
+      // {
+      //   label: "ลบข้อมูล",
+      //   field: "delete",
+      //   width:  100,
+      // },
       {
         label: "สายงาน",
         field: "section",
-        width: 100,
+        width: 150,
       },
       {
         label: "ฝ่าย",
         field: "department",
-        width: 100,
+        width: 150,
       },
       {
         label: "ชื่อตำแหน่ง(Th)",
         field: "position_thai",
-        width: 100,
+        width: 150,
       },
       {
         label: "ชื่อตำแหน่ง(Eng)",
         field: "position_eng",
-        width: 100,
+        width: 150,
       },
      
     ],
@@ -107,11 +108,11 @@ export default function Editposition() {
           <CardBody>
         <MDBDataTableV5
         //striped    
-          //hover 
+          hover 
           entriesOptions={[5, 10, 20, 25]}
           entries={5}
           pagesAmount={4}
-         // scrollX
+          scrollX
           data={datatable}
           searchTop
           searchBottom={false}

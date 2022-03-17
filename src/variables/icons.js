@@ -103,11 +103,11 @@ const icons = [
   "ui-1_calendar-60",
   "ui-1_lock-circle-open",
   "ui-1_send",
-  "ui-1_settings-gear-63",
+  "ui-1_settings-gear-63", //ตั้งค่า
   "ui-1_simple-add",
   "ui-1_simple-delete",
-  "ui-1_simple-remove",
-  "ui-1_zoom-bold",
+  "ui-1_simple-remove", //รูปกากบาท
+  "ui-1_zoom-bold", //รูปแว่นขยาย
   "ui-2_chat-round",
   "ui-2_favourite-28",
   "ui-2_like",

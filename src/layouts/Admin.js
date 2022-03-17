@@ -12,6 +12,7 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import Edit from "views/edit";
 import routes from "routes.js";
+import Position_edit from "views/position_edit";
 
 var ps;
 
@@ -54,9 +55,10 @@ function Admin(props) {
               />
             );
           })}
-          <Route path="/admin/edit_emp/:id" component={Edit}></Route>
       
-          <Redirect from="/admin" to="/admin/dashboard" />
+          <Route path="/admin/edit_emp/:id" component={Edit}></Route>
+          <Route path="/admin/Position_ed/:id_section/:id_department/:id_position" component={Position_edit}></Route>
+      
         </Switch>
         <Footer fluid />
       </div>

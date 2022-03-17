@@ -14,6 +14,8 @@ const { response, request } = require("express");
 const { data } = require("jquery");
 const { Select } = require("antd");
 const sharp = require("sharp");
+const { clearScreenDown } = require("readline");
+const bcrypt = require("bcryptjs");
 
 app.use(fileupload());
 app.use(express.static("files"));
@@ -61,9 +63,13 @@ app.post("/post_form_hr", (req, res) => {
   let id_section = req.body.id_section;
   let id_department = req.body.id_department;
   let id_position = req.body.id_position;
+  let number_emp = req.body.number_emp;
+  let birthday_emp = req.body.birthday_emp;
+
+  let status_emp = "ทำงานอยู่";
 
   let insert_project_hr =
-    "insert into project_hr(hr_employeeid,hr_job_start,hr_employeename,hr_surname,hr_employee_eng,hr_lastname_eng,hr_nickname,hr_phone, hr_email_user, hr_password, hr_employee_img,hr_emp,id_section,id_department,id_position)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    "insert into project_hr(hr_employeeid,hr_job_start,hr_employeename,hr_surname,hr_employee_eng,hr_lastname_eng,hr_nickname,hr_phone, hr_email_user, hr_password, hr_employee_img,hr_emp,id_section,id_department,id_position,number_emp,status_emp,birthday_emp)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   let array_project_hr = [
     hr_employeeid,
     hr_job_start,
@@ -80,6 +86,9 @@ app.post("/post_form_hr", (req, res) => {
     id_section,
     id_department,
     id_position,
+    number_emp,
+    status_emp,
+    birthday_emp,
   ];
 
   db.query(insert_project_hr, array_project_hr, (err, result) => {
@@ -190,7 +199,7 @@ app.post("/upload_edit", (req, res) => {
 
 app.get("/post_form_hr", (req, res) => {
   db.query(
-    "SELECT project_hr.*,hr_section.eng_section,hr_department.eng_department,hr_position.eng_position FROM project_hr INNER JOIN hr_section ON project_hr.id_section = hr_section.id_section INNER JOIN hr_department ON project_hr.id_department = hr_department.id_department INNER JOIN hr_position ON project_hr.id_position = hr_position.id_position ORDER BY project_hr.hr_run_id DESC",
+    "SELECT project_hr.*,hr_section.eng_section,hr_department.eng_department,hr_position.eng_position,hr_section.name_section FROM project_hr INNER JOIN hr_section ON project_hr.id_section = hr_section.id_section INNER JOIN hr_department ON project_hr.id_department = hr_department.id_department INNER JOIN hr_position ON project_hr.id_position = hr_position.id_position ORDER BY project_hr.hr_run_id DESC",
     (err, result) => {
       //("SELECT project_hr.* , hr_department.thai_department FROM `project_hr` inner join hr_department on project_hr.id_department = hr_department.id_department;", (err, result) => {
       if (err) {
@@ -261,7 +270,7 @@ app.get("/set_project_hr/:id", (req, res) => {
 //แก้ไข ลบ position=======
 app.get("/post_addposition_edit", (req, res) => {
   db.query(
-    "SELECT hr_position.*,hr_section.id_section,hr_department.id_department,hr_section.eng_section,hr_department.eng_department FROM hr_position INNER JOIN hr_section ON hr_position.id_section = hr_section.id_section INNER JOIN hr_department ON hr_position.id_department = hr_department.id_department where hr_position.id_position;",
+    "SELECT hr_position.*,hr_section.id_section,hr_department.id_department,hr_section.eng_section,hr_department.eng_department FROM hr_position INNER JOIN hr_section ON hr_position.id_section = hr_section.id_section INNER JOIN hr_department ON hr_position.id_department = hr_department.id_department where hr_position.id_position ORDER BY hr_section.id_section DESC",
     (err, result) => {
       if (err) {
         console.log(err);
@@ -276,31 +285,34 @@ app.get("/post_addposition_edit", (req, res) => {
   );
 });
 
-app.get(
-  "/addposition_edit/:id_section/:id_department/:id_position",
-  (req, res) => {
-    let id_section = req.params.id_section;
-    let id_department = req.params.id_department;
-    let id_position = req.params.id_position;
-    db.query(
-      "SELECT hr_position.*,hr_section.id_section,hr_department.id_department,hr_section.eng_section,hr_department.eng_department FROM hr_position INNER JOIN hr_section ON hr_position.id_section = hr_section.id_section INNER JOIN hr_department ON hr_position.id_department = hr_department.id_department where hr_position.id_position = '" +
-        id_position +
-        "' and hr_department.id_department = '" +
-        id_department +
-        "' and hr_section.id_section = '" +
-        id_section +
-        "' ",
-      (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(result);
-          res.send(result[0]);
-        }
-      }
-    );
-  }
-);
+// app.get(
+//   "/addposition_edit/:id_section/:id_department/:id_position",
+//   (req, res) => {
+//     let id_section = req.params.id_section;
+//     let id_department = req.params.id_department;
+//     let id_position = req.params.id_position;
+
+//     console.log(id_section)
+
+//     db.query(
+//       "SELECT hr_position.*,hr_section.id_section,hr_department.id_department,hr_section.eng_section,hr_department.eng_department FROM hr_position INNER JOIN hr_section ON hr_position.id_section = hr_section.id_section INNER JOIN hr_department ON hr_position.id_department = hr_department.id_department where hr_position.id_position = '" +
+//         id_position +
+//         "' and hr_department.id_department = '" +
+//         id_department +
+//         "' and hr_section.id_section = '" +
+//         id_section +
+//         "' ",
+//       (err, result) => {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           console.log(result);
+//           res.send(result[0]);
+//         }
+//       }
+//     );
+//   }
+// );
 
 //=======Dynamic_สายงาน
 app.get("/dynamic_section", (req, res) => {
@@ -388,6 +400,13 @@ app.post("/post_form_hr_edit", (req, res) => {
   let id_position_edit = req.body.id_position_edit;
   let hr_emp_edit = req.body.hr_emp_edit;
   let id = req.body.id;
+  let number_emp_edit = req.body.number_emp_edit;
+  let status_emp_edit =req.body.status_emp_edit;
+  let job_out_edit = req.body.job_out_edit;
+  let birthday_emp_edit = req.body.birthday_emp_edit;
+
+  console.log(status_emp_edit);
+
   let update_project_hr =
     "update project_hr set hr_employeeid = '" +
     hr_employeeid_edit +
@@ -409,7 +428,7 @@ app.post("/post_form_hr_edit", (req, res) => {
     hr_emp_edit +
     "',id_section = '" +
     id_section_edit +
-    "',id_department = '" +
+    "',number_emp = '"+number_emp_edit+"',id_department = '" +
     id_department_edit +
     "',id_position = '" +
     id_position_edit +
@@ -417,64 +436,39 @@ app.post("/post_form_hr_edit", (req, res) => {
     hr_email_user_edit +
     "',hr_password= '" +
     hr_password_edit +
-    "' where hr_run_id ='" +
+    "',job_out= '"+	job_out_edit +"',status_emp= '"+status_emp_edit+"',birthday_emp='"+birthday_emp_edit+"' where hr_run_id ='" +
     id +
     "' ";
+
+  
 
   db.query(update_project_hr, (err, result) => {
     if (err) {
       console.log(err);
       res.send({
-        message: "เพิ่มข้อมูลไม่สำเร็จ",
+        message: "แก้ไขข้อมูลไม่สำเร็จ",
       });
     } else {
       res.send({
-        status: "ok",
-        message: "เพิ่มข้อมูลสำเร็จ",
+        status: "success",
+        message: "แก้ไขข้อมูลสำเร็จ",
+        id : id 
       });
     }
   });
 });
 
-app.post("/addposition_edit/:id_section/:id_department/:id_position", (req, res) => {
-  
-  let thai_position_edit = req.body.thai_position_edit;
-  let eng_position_edit = req.body.eng_position_edit;
-  
-  let id_department_edit = req.body.id_department_edit;
-  let id_section_edit = req.params.id_section_edit;
-  let id_position_edit = req.params.id_position_edit;
+app.post("/position_edit", (req, res) => {  
+  let thai_position_edit = req.body.thai;
+  let eng_position_edit = req.body.eng;
+  let id_position = req.body.id_position;
 
-  let id_section = req.params.id_section;
-  let id_department= req.params.id_department;
-  let id_position= req.params.id_position;
+  console.log(`ID : ${id_position} \n Thai : ${thai_position_edit} \n Eng : ${eng_position_edit}`)
     
-  let update_hr_position = "update hr_position set id_department = '" +
-  id_department_edit +
-  "', thai_position = '" +
-  thai_position_edit +
-  "', eng_position = '" +
-  eng_position_edit +
-  "',id_section = '"+id_section_edit+"', id_position ='"+id_position_edit+"' where hr_position.id_position ='" +
-  id_position +"' and hr_department.id_department = '"+id_department+"' and hr_section.id_section = '"+id_section+"' ORDER BY hr_position.id_position DESC";
-
-  // let update_hr_position =
-  //   "update hr_position set id_department = '" +
-  //   id_department_edit +
-  //   "', thai_position = '" +
-  //   thai_position_edit +
-  //   "', eng_position = '" +
-  //   eng_position_edit +
-  //   "',id_section = '"+id_section_edit+"', id_position ='"+id_position_edit+"' hr_position.id_position = '" +
-  //   id_position +
-  //   "' and hr_department.id_department = '" +
-  //   id_department +
-  //   "' and hr_section.id_section = '" +
-  //   id_section +
-  //   "' ORDER BY hr_position.id_position DESC";
-
-
-        
+  let update_hr_position = "update hr_position set thai_position = '" +thai_position_edit +"' , eng_position = '" +eng_position_edit +"' where hr_position.id_position ='" +
+  id_position +"' ";
+  
+  
   db.query(update_hr_position, (err, result) => {
     if (err) {
       console.log(err);
@@ -496,6 +490,7 @@ app.get("/set_addposition/:id_section/:id_department/:id_position",
     let id_section = req.params.id_section;
     let id_department = req.params.id_department;
     let id_position = req.params.id_position;
+    // console.log(id_section)
     db.query(
       "SELECT hr_position.*,hr_section.id_section,hr_department.id_department,hr_section.eng_section,hr_department.eng_department FROM hr_position INNER JOIN hr_section ON hr_position.id_section = hr_section.id_section INNER JOIN hr_department ON hr_position.id_department = hr_department.id_department where hr_position.id_position = '" +
         id_position +
@@ -508,27 +503,98 @@ app.get("/set_addposition/:id_section/:id_department/:id_position",
         if (err) {
           console.log(err);
         } else {
-          console.log(result);
+        
           res.send(result[0]);
+          console.log(result[0].thai_position)
         }
       }
     );
   }
 );
 
-app.get("/set_project_hr/:id", (req, res) => {
-  let id = req.params.id;
-  db.query(
-    "SELECT project_hr.*,hr_section.eng_section,hr_department.eng_department,hr_position.eng_position FROM project_hr INNER JOIN hr_section ON project_hr.id_section = hr_section.id_section INNER JOIN hr_department ON project_hr.id_department = hr_department.id_department INNER JOIN hr_position ON project_hr.id_position = hr_position.id_position where project_hr.hr_run_id = '" +
-      id +
-      "' ORDER BY project_hr.hr_run_id DESC",
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(result);
-        res.send(result[0]);
-      }
+
+// app.get("/set_project_hr/:id", (req, res) => {
+//   let id = req.params.id;
+//   db.query(
+//     "SELECT project_hr.*,hr_section.eng_section,hr_department.eng_department,hr_position.eng_position FROM project_hr INNER JOIN hr_section ON project_hr.id_section = hr_section.id_section INNER JOIN hr_department ON project_hr.id_department = hr_department.id_department INNER JOIN hr_position ON project_hr.id_position = hr_position.id_position where project_hr.hr_run_id = '" +
+//       id +
+//       "' ORDER BY project_hr.hr_run_id DESC",
+//     (err, result) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log(result);
+//         res.send(result[0]);
+//       }
+//     }
+//   );
+// });
+
+//========== ลบ
+app.get("/delete_position/:id_position", (req,res) => {
+  let id_position = req.params.id_position;
+
+  let delete_hr_position = "delete from hr_position where hr_position.id_position ='"+id_position+"'";
+  
+  db.query(delete_hr_position, (err, result) => {
+    if (err) {
+      console.log(err);
+      // res.send({
+      //   message: "ลบข้อมูลไม่สำเร็จ",
+      // });
+    } else {
+      console.log(result);
+      
+    
+      res.redirect('http://localhost:3000/admin/delete_position')
+
+      // res.send({
+      //   status: "ok",
+      //   message: "ลบข้อมูลสำเร็จ",
+      // });
     }
-  );
-});
+  });
+})
+
+//login
+app.post("/Check_login", (req,res) => {
+  async function Check_login() {
+    let username = req.body.username;
+    let password = req.body.password;
+    bcrypt.hash(username, 10, (err, tokentext) => {
+
+      let data = "select project_hr.*,hr_department.name_department, hr_position.id_position from project_hr inner join hr_department on project_hr.id_department = hr_department.id_department inner join hr_position on project_hr.id_position = hr_position.id_position where hr_employeeid = '"+ username +"' and hr_password = '"+password+"' and hr_emp != 'รายวัน'  ";
+
+      db.query(data, (err, result) => {
+        if (err) {
+          console.log(err);
+        }else {
+          if (result.length === 0) {
+            res.send({
+              status: "error",
+              message: "ตรวจสอบ Username หรือ Password",
+            });
+          }else {
+            // ตัวจะส่งไปข้างหน้า 
+            res.send({
+              status: "ok",
+              message: "เข้าสู่ระบบสำเร็จ",
+              accessToken: tokentext,
+              hr_employeeid: result[0].hr_employeeid,
+              hr_employeename: result[0].hr_employeename,
+              hr_surname: result[0].hr_surname,
+              name_department: result[0].name_department,
+              status_emp: result[0].status_emp,
+              hr_run_id: result[0].hr_run_id,
+              hr_emp: result[0].hr_emp,
+            });
+          }
+          console.log(result);
+        }
+      })
+    })
+
+  }
+
+  Check_login()
+})

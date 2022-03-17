@@ -45,6 +45,8 @@ function Sidebar(props) {
   //     }
   //   };
   // });
+
+
   return (
     <div className="sidebar" data-color={props.backgroundColor}>
       <div className="logo">

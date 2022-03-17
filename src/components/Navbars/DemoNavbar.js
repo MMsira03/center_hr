@@ -36,6 +36,7 @@ import {
 } from "reactstrap";
 
 import routes from "routes.js";
+import Icons from "views/Icons";
 
 function DemoNavbar(props) {
   const location = useLocation();
@@ -103,6 +104,14 @@ function DemoNavbar(props) {
       sidebarToggle.current.classList.toggle("toggled");
     }
   }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.href = "/";
+  };
+
+  const hr_employeename = localStorage.getItem('hr_employeename');
+  
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <Navbar
@@ -140,8 +149,9 @@ function DemoNavbar(props) {
           <span className="navbar-toggler-bar navbar-kebab" />
           <span className="navbar-toggler-bar navbar-kebab" />
         </NavbarToggler>
-        <Collapse isOpen={isOpen} navbar className="justify-content-end">
-          <form>
+
+       <Collapse isOpen={isOpen} navbar className="justify-content-end">
+          {/* <form>
             <InputGroup className="no-border">
               <Input placeholder="Search..." />
               <InputGroupAddon addonType="append">
@@ -150,17 +160,17 @@ function DemoNavbar(props) {
                 </InputGroupText>
               </InputGroupAddon>
             </InputGroup>
-          </form>
+          </form> */}
           <Nav navbar>
-            <NavItem>
+            {/* <NavItem>
               <Link to="#pablo" className="nav-link">
                 <i className="now-ui-icons media-2_sound-wave" />
                 <p>
                   <span className="d-lg-none d-md-block">Stats</span>
                 </p>
               </Link>
-            </NavItem>
-            <Dropdown
+            </NavItem> */}
+            {/* <Dropdown
               nav
               isOpen={dropdownOpen}
               toggle={(e) => dropdownToggle(e)}
@@ -176,17 +186,20 @@ function DemoNavbar(props) {
                 <DropdownItem tag="a">Another Action</DropdownItem>
                 <DropdownItem tag="a">Something else here</DropdownItem>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
             <NavItem>
-              <Link to="#pablo" className="nav-link">
+              <Link to="/loginUser" className="nav-link">
                 <i className="now-ui-icons users_single-02" />
                 <p>
-                  <span className="d-lg-none d-md-block">Account</span>
+                  <span onClick={handleLogout}>Logout</span>
+                  
                 </p>
               </Link>
             </NavItem>
           </Nav>
         </Collapse>
+
+  
       </Container>
     </Navbar>
   );

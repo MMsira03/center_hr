@@ -36,116 +36,7 @@ import PanelHeader from "components/PanelHeader/PanelHeader.js";
 function User() {
   return (
     <>
-    <PanelHeader size="sm" />
-      <div className="content">
-        <Row>
-          <Col md="11">
-            <Card>
-              <CardHeader>
-                <h5 className="title">Form</h5>
-              </CardHeader>
-              <CardBody>
-                <Form>
-                  <Row>
-                    <Col sm='6'>
-                      <FormGroup>
-                        <label>รหัสพนักงาน</label>
-                        <Input
-                          // defaultValue="Creative Code Inc."
-                          // disabled
-                          placeholder="รหัสพนักงาน"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-
-                    <Col sm='6'>
-                      <FormGroup>
-                        <label>วันเข้างาน</label>
-                        <Input
-                          defaultValue="michael23"
-                          placeholder="วันเข้างาน"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    </Row>
-
-                    <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Input placeholder="Email" type="email" />
-                      </FormGroup>
-                    </Col>
-                
-                    <Col md="6">
-                      <FormGroup>
-                        <label>First Name</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    </Row>
-
-                    <Row><Col md="6">
-                      <FormGroup>
-                        <label>Last Name</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Address</label>
-                        <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col></Row>
-                       
-                    
-          
-                    <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>City</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Country</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    </Row>
-                </Form>
-              </CardBody>
-            </Card>
-            </Col>
-         </Row>
-      </div>
-
-      {/* <PanelHeader size="sm" />
+     <PanelHeader size="sm" />
       <div className="content">
         <Row>
           <Col md="12">
@@ -266,8 +157,8 @@ function User() {
                 </Form>
               </CardBody>
             </Card>
-          </Col> */}
-          {/* <Col md="4">
+          </Col> 
+          <Col md="4">
             <Card className="card-user"> 
               <div className="image">
                 <img alt="..." src={require("assets/img/bg5.jpg").default} />
@@ -321,9 +212,9 @@ function User() {
                 </Button>
               </div>
             </Card> 
-          </Col> */}
-        {/* </Row>
-      </div> */}
+          </Col> 
+         </Row>
+      </div> 
     </>
   );
 }

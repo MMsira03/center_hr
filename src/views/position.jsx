@@ -110,6 +110,7 @@ export default function Position() {
                       <FormGroup>
                         <Label>สายงาน</Label>
                         <Input
+                        required
                           type="select"
                           onChange={(e) => setID_section(e.target.value)} style={{fontSize:"14px"}}
                         >
@@ -129,6 +130,7 @@ export default function Position() {
                       <FormGroup>
                         <Label>ฝ่าย</Label>
                         <Input
+                        required
                           type="select"
                           onChange={(e) => setID_department(e.target.value)} style={{fontSize:"14px"}}
                         >
@@ -147,6 +149,7 @@ export default function Position() {
                       <FormGroup>
                         <Label>ชื่อตำแหน่ง/ฝ่าย(THAI)</Label>
                         <Input
+                        required
                           type="text"
                           placeholder="ตำแหน่ง(ภาษาไทย)"
                           onChange={(e) => setThai_position(e.target.value)} style={{fontSize:"14px"}}> 
@@ -158,6 +161,7 @@ export default function Position() {
                       <FormGroup>
                         <Label>ชื่อตำแหน่ง/ฝ่าย(ENG)</Label>
                         <Input
+                        required
                           type="text"
                           placeholder="ตำแหน่ง(ภาษาอังกฤษ)"
                           onChange={(e) => setEng_position(e.target.value)} style={{fontSize:"14px"}}>

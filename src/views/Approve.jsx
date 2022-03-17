@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import {
-  Row,
-  Col,
+import {Row,Col,
   Button,
   Form,
   FormGroup,
@@ -18,7 +16,7 @@ import { data } from "jquery";
 import { useEffect } from "react";
 import { result } from "lodash";
 
-export default function Userform() {
+export default function Approve() {
   const [hr_employeeid, setHr_Employeeid] = useState("");
   const [hr_employeename, setHr_Employeename] = useState("");
   const [hr_surname, setHr_Employeesurname] = useState("");
@@ -185,7 +183,7 @@ const AsstManager = () => {
                       <FormGroup>
                         <label> รหัสพนักงาน</label>
                         <Input
-                          required
+                        //  required
                           type="text"
                         
                           placeholder="ID_Employee"
@@ -198,7 +196,7 @@ const AsstManager = () => {
                       <FormGroup>
                         <label> เลขเครื่องสแกนนิ้ว</label>
                         <Input
-                          required
+                          //required
                           type="text"
                           placeholder="Num_Employee"
                           style={{ fontSize: "12px" }}
@@ -211,7 +209,7 @@ const AsstManager = () => {
                       <FormGroup>
                         <label> วันเข้างาน</label>
                         <Input
-                          required
+                          //required
                           type="date"
                           placeholder="วันเข้างาน"
                           style={{ fontSize: "12px" }}
@@ -225,7 +223,7 @@ const AsstManager = () => {
                       <FormGroup class="col-md-12">
                         <label> ชื่อ</label>
                         <Input
-                          required
+                         // required
                           type="text"
                           placeholder="ชื่อ(ภาษาไทย)"
                           style={{ fontSize: "12px" }}
@@ -237,7 +235,7 @@ const AsstManager = () => {
                       <FormGroup class="col-md-12">
                         <label> นามสกุล</label>
                         <Input
-                          required
+                         // required
                           type="text"
                           placeholder="นามสกุล"
                           style={{ fontSize: "12px" }}
@@ -253,7 +251,7 @@ const AsstManager = () => {
                       <FormGroup class="col-md-12">
                         <label>First Name</label>
                         <Input
-                          required
+                         // required
                           type="text"
                           placeholder="name"
                           style={{ fontSize: "12px" }}
@@ -265,7 +263,7 @@ const AsstManager = () => {
                       <FormGroup class="col-md-12">
                         <label> Last Name</label>
                         <Input
-                          required
+                         // required
                           type="text"
                           placeholder="lastname"
                           style={{ fontSize: "12px" }}
@@ -279,7 +277,7 @@ const AsstManager = () => {
                       <FormGroup>
                         <label> ชื่อเล่น</label>
                         <Input
-                          required
+                        //  required
                           type="text"
                           placeholder="Nickname"
                           style={{ fontSize: "12px" }}
@@ -293,7 +291,7 @@ const AsstManager = () => {
                       <FormGroup>
                         <label> วัน/เดือน/ปีเกิด</label>
                         <Input
-                          required
+                         // required
                           type="date"
                           placeholder="birthday"
                           style={{ fontSize: "12px" }}
@@ -307,7 +305,7 @@ const AsstManager = () => {
                       <FormGroup>
                         <label> เบอร์โทรศัพท์</label>
                         <Input
-                          required
+                       //   required
                           type="tel"
                           placeholder="Phone"
                           style={{ fontSize: "12px" }}
@@ -324,7 +322,7 @@ const AsstManager = () => {
                         <div style={{ paddingLeft: "30px" }}>
                           <Input
                             onClick={cat_emp}
-                            required
+                        //    required
                             type="radio"
                             id="emp_1"
                             value="รายเดือน"
@@ -382,7 +380,7 @@ const AsstManager = () => {
                         <label>สายงาน</label>
                         <Input
                           style={{ fontSize: "12px" }}
-                          required
+                        //  required
                           type="select"
                           onChange={(e) => setID_section(e.target.value)}
                         >
@@ -404,7 +402,7 @@ const AsstManager = () => {
                         <Input
                           style={{ fontSize: "12px" }}
                           id="de"
-                          required
+                        //  required
                           type="select"
                           onChange={(e) => setID_department(e.target.value)}
                         >
@@ -424,7 +422,7 @@ const AsstManager = () => {
                       <FormGroup>
                         <label>ตำแหน่ง</label>
                         <Input
-                          required
+                        //  required
                           type="select"
                           id="po"
                           onChange={(e) => setID_position(e.target.value)}
@@ -470,15 +468,18 @@ const AsstManager = () => {
                   </Row>
                   <label> รูปภาพ</label>
                   <Input
-                    required
+                   // required
                     type="file"
                     name="image"
                     accept="image/*"
                     onChange={saveFile}
                     style={{ fontSize: "14px" }}
                   ></Input>
+
+
                   <br />
-                <Button type="submit" style={{backgroundColor:"#f36838",fontSize: "13px", padding: "8px 10px 8px 10px"}}>บันทึกข้อมูล</Button>
+                  <Button type="submit" className="button1">ตรวจสอบข้อมูล</Button>
+                {/* <Button type="submit">ตกลง</Button> */}
                 </Form>
               </CardBody>
             </Card>
